@@ -1,0 +1,72 @@
+Documentation to get a VM up and running from a Previously Corrupted System
+
+
+
+FOR ALL MACHINES
+
+1.	Sudo apt-get install git
+2.	Sudo apt-get install php
+3.	Sudo apt-get install mysql-server
+4.	Sudo apt-get install php-mysqli
+5.	Make Sure you add your IP in the /etc/networks/interfaces
+-	# interfaces(5) file used by ifup(8) and ifdown(8)
+-	# iface to inet loopback
+-	auto enp0s3
+-	iface en0sp3 inet static
+-	address 192.168.1.xxx
+-	netmast 255.255.255.0
+-	gateway 192.168.1.1
+-	dns-nameservers 8.8.4.4 8.8.8.8
+
+6.	Sudo apt-get install ssh
+7.	Add user deploy to /etc/sudoers
+8.	Sudo apt-get install sshpass	
+- write “deploy ALL=(ALL)NOPASSWD:ALL	
+
+
+
+
+
+
+
+FOR APACHE SERVER
+
+Description: This will host the web server, so we will reference this IP for using our actual website.
+
+1.	Sudo apt-get install apache2
+2.	Sudo apt-get install libapache2-mod-php7.0
+3.	Sudo apt-get install sendmail
+
+
+
+
+
+
+
+FOR RABBITMQ SERVER
+
+Description: This will host our rabbitmq server, so anything running throught the communication layer will be run through this server. 
+
+1.	Sudo apt-get install rabbitmq-server
+2.	Sudo apt-get install php-amqplib
+3.	Sudo apt-get install php=amqp
+4.	Go to 127.0.0.1:15672
+a.	Create host named “testHost”
+b.	Create a user named “test”, and assign as an admin for “testHost”
+c.	Create an exchange named “testExchange” and make it topic in “testHost”
+d.	Create a queue named “testQueue” under “testHost”
+e.	Make any other queues according to your needs
+
+
+
+FOR DMZ SERVER/DEPLOYMENT
+
+Description: This is the server in charge of gathering all the information and inputting it into the database. The Deployment server is in charge of keeping all packaged programs, and backing up and distributing the new programs when commanded too. It will also keep track of all the logs in the system.
+
+
+1.	Sudo apt-get install curl
+
+
+DATABASE SERVER
+
+Description: This server is in charge of keeping all the tables and information needed up to date for the website. Also regularly backs up databases to allow for reliable backups.
